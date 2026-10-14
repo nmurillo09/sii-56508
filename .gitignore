@@ -1,0 +1,7 @@
+# Directorio de compilación (lo genera CMake/Make, no se sube)
+workspace/build/
+
+# Ficheros objeto y temporales de editores
+*.o
+*~
+*.swp

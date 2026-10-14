@@ -1,44 +1,47 @@
-# Sistemas Informáticos Industriales
+# Tenis – Sistemas Informáticos Industriales
 
-![UPM](https://img.shields.io/badge/UPM-ETSIDI-red)
-![Curso](https://img.shields.io/badge/Curso-2026--2027-blue)
-![Lenguaje](https://img.shields.io/badge/C-Programming-00599C?logo=c)
-![Linux](https://img.shields.io/badge/Linux-Ubuntu-E95420?logo=ubuntu)
-![Git](https://img.shields.io/badge/Git-Version%20Control-F05032?logo=git)
+Repositorio de prácticas de la asignatura **Sistemas Informáticos Industriales** (ETSIDI – UPM).
 
-Material docente de la asignatura **Sistemas Informáticos Industriales** de la **Escuela Técnica Superior de Ingeniería y Diseño Industrial (ETSIDI)** de la **Universidad Politécnica de Madrid (UPM)**.
+**Autor:** Nicolás Murillo · Matrícula 56508
 
----
+## Descripción
 
-## 📖 Descripción
+Juego de tenis en 2D para dos jugadores que comparten teclado y pantalla, escrito en **C++** con **OpenGL** y **GLUT**. A lo largo de las 5 prácticas se irá ampliando con comunicación entre procesos y concurrencia.
 
-Este repositorio contiene el material utilizado en las prácticas de la asignatura **Sistemas Informáticos Industriales**, incluyendo los guiones y el código de inicio.
+## Controles
 
-El objetivo de la asignatura es introducir en el desarrollo de aplicaciones para sistemas informáticos industriales, haciendo especial énfasis en el uso del lenguaje C y del sistema operativo Linux.
+| Jugador | Subir | Bajar |
+|---|---|---|
+| Jugador 1 (izquierda) | `w` | `s` |
+| Jugador 2 (derecha) | `o` | `l` |
 
----
+Cuando la pelota llega al fondo del campo contrario, el jugador suma un punto.
 
-## 📚 Wiki
+## Requisitos
 
-La documentación detallada de cada una de las prácticas se encuentra en la Wiki del repositorio.
+```bash
+sudo apt install build-essential cmake freeglut3-dev git
+```
 
-➡️ **Acceso a la Wiki:**  
-https://github.com/raquelcedazo/sistemas-informaticos-industriales/wiki
+## Compilación y ejecución
 
----
+```bash
+cd workspace
+mkdir -p build && cd build
+cmake ..
+make
+./tenis
+```
 
-## 🎓 Profesorado
+## Estructura
 
-Asignatura impartida por el **Departamento de Ingeniería Eléctrica, Electrónica, Automática y Física Aplicada** de la **Universidad Politécnica de Madrid**:
+```
+workspace/
+├── CMakeLists.txt   Reglas de compilación
+├── include/         Cabeceras (.h)
+└── src/             Código fuente (.cpp)
+```
 
-- **Raquel Cedazo** *(coordinadora de las prácticas)*
-- **David Álvarez**
-- **Imanol Izcara**
+## Historial de prácticas
 
----
-
-## 🤝 Contribuciones
-
-Este repositorio tiene finalidad exclusivamente docente.
-
-Si detectas algún error o tienes alguna sugerencia de mejora, puedes comunicarlo al profesorado de la asignatura.
+- **Práctica 1 (v1.1):** entorno de desarrollo (Git, CMake, Make). Movimiento de las raquetas y de la pelota.

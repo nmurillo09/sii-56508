@@ -164,7 +164,9 @@ void CMundo::OnKeyboardDown(unsigned char key, int x, int y)
 
 void CMundo::Init()
 {
-	Plano p;
+	puntos1=0;
+	puntos2=0;
+	Plano p;	
 //pared inferior
 	p.x1=-7;p.y1=-5;
 	p.x2=7;p.y2=-5;
