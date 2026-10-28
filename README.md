@@ -45,3 +45,11 @@ workspace/
 ## Historial de prácticas
 
 - **Práctica 1 (v1.1):** entorno de desarrollo (Git, CMake, Make). Movimiento de las raquetas y de la pelota.
+- **Práctica 2 (v1.2):** comunicación entre procesos con una tubería con nombre (FIFO).
+## Ejecución con el logger (desde la práctica 2)
+El juego envía cada punto al programa 'logger' através de la FIFO '/tmp/fifo_logger'. El logger crea la FIFO, así que debe lanzarse **antes** que el 
+juego, en otro terminal:
+    # Terminal 1
+    ./logger
+    # Terminal 2
+    ./tenis
