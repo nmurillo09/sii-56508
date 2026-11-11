@@ -11,6 +11,7 @@
 #include <math.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <sys/mman.h>
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -24,6 +25,8 @@ CMundo::CMundo()
 CMundo::~CMundo()
 {
 close(fd_fifo);
+	munmap(pdatos, sizeof(DatosMemCompartida));
+	unlink("/tmp/datos_bot");
 }
 
 void CMundo::InitGL()
@@ -117,6 +120,16 @@ void CMundo::OnDraw()
 
 void CMundo::OnTimer(int value)
 {	
+		// Comunicación con el bot: publicar datos y leer su acción
+	pdatos->esfera = esfera;
+	pdatos->raqueta1 = jugador1;
+	if (pdatos->accion == 1)
+		OnKeyboardDown('w', 0, 0);
+	else if (pdatos->accion == -1)
+		OnKeyboardDown('s', 0, 0);
+	else
+		jugador1.velocidad.y = 0;
+
 	jugador1.Mueve(0.025f);
 	jugador2.Mueve(0.025f);
 	esfera.Mueve(0.025f);
@@ -182,6 +195,19 @@ void CMundo::Init()
 fd_fifo=open("/tmp/fifo_logger", O_WRONLY);
 if(fd_fifo<0)
 perror("No puede abrirse el FIFO (¿has lanzado el logger?");
+
+	// Memoria compartida con el bot (fichero proyectado en memoria)
+	int fd_mem = open("/tmp/datos_bot", O_RDWR | O_CREAT | O_TRUNC, 0666);
+	if (fd_mem < 0)
+		perror("No puede crearse el fichero compartido");
+	ftruncate(fd_mem, sizeof(DatosMemCompartida));
+	pdatos = (DatosMemCompartida*)mmap(NULL, sizeof(DatosMemCompartida),
+	                PROT_READ | PROT_WRITE, MAP_SHARED, fd_mem, 0);
+	if (pdatos == MAP_FAILED)
+		perror("Error en la proyeccion mmap");
+	close(fd_mem);
+	pdatos->accion = 0;
+
 	puntos1=0;
 	puntos2=0;
 	Plano p;	

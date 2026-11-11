@@ -46,6 +46,8 @@ workspace/
 
 - **Práctica 1 (v1.1):** entorno de desarrollo (Git, CMake, Make). Movimiento de las raquetas y de la pelota.
 - **Práctica 2 (v1.2):** comunicación entre procesos con una tubería con nombre (FIFO).
+- **Práctica 3 (v1.3):** comunicación mediante fichero proyectado en memoria (mmap). Nuevo programa `bot` que controla automáticamente la raqueta 1 a partir de las posiciones de la pelota y la raqueta compartidas con el juego.
+
 ## Ejecución con el logger (desde la práctica 2)
 El juego envía cada punto al programa 'logger' através de la FIFO '/tmp/fifo_logger'. El logger crea la FIFO, así que debe lanzarse **antes** que el 
 juego, en otro terminal:
@@ -53,3 +55,5 @@ juego, en otro terminal:
     ./logger
     # Terminal 2
     ./tenis
+    # Terminal 3 (después del tenis: el juego crea /tmp/datos_bot)
+    ./bot
