@@ -25,6 +25,7 @@ CMundo::CMundo()
 CMundo::~CMundo()
 {
 close(fd_fifo);
+	pdatos->fin=1;
 	munmap(pdatos, sizeof(DatosMemCompartida));
 	unlink("/tmp/datos_bot");
 }
@@ -207,7 +208,7 @@ perror("No puede abrirse el FIFO (¿has lanzado el logger?");
 		perror("Error en la proyeccion mmap");
 	close(fd_mem);
 	pdatos->accion = 0;
-
+	pdatos->fin=0;
 	puntos1=0;
 	puntos2=0;
 	Plano p;	

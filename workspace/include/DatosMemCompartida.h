@@ -8,4 +8,5 @@ public:
 	Esfera esfera;
 	Raqueta raqueta1;
 	int accion;
+	int fin;
 };

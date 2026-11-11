@@ -29,7 +29,7 @@ int main(int argc,char* argv[])
 	close(fd);
 	dat=(DatosMemCompartida*)direccion;
 
-	while(1)
+	while(dat->fin==0)
 	{
 		usleep(25000);
 		// Centro de la raqueta 1
@@ -42,5 +42,7 @@ int main(int argc,char* argv[])
 		else
 			dat->accion = 0;	// alineados: no moverse
 	}
+	munmap(direccion, sizeof(DatosMemCompartida));
+	printf("Fin del juego: el bot termina.\n");
 	return 0;
 }
