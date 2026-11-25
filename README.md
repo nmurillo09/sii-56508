@@ -30,7 +30,7 @@ cd workspace
 mkdir -p build && cd build
 cmake ..
 make
-./tenis
+./logger      # y despues ./servidor, ./cliente y ./bot, cada uno en su terminal (ver Ejecucion)
 ```
 
 ## Estructura
@@ -47,13 +47,20 @@ workspace/
 - **Práctica 1 (v1.1):** entorno de desarrollo (Git, CMake, Make). Movimiento de las raquetas y de la pelota.
 - **Práctica 2 (v1.2):** comunicación entre procesos con una tubería con nombre (FIFO).
 - **Práctica 3 (v1.3):** comunicación mediante fichero proyectado en memoria (mmap). Nuevo programa `bot` que controla automáticamente la raqueta 1 a partir de las posiciones de la pelota y la raqueta compartidas con el juego.
+- **Práctica 4 (v1.4):** el juego se divide en `servidor` (física, puntos y logger) y `cliente` (dibujo, teclado y bot), comunicados por dos FIFO. El servidor usa un hilo (pthread) para recibir las teclas sin bloquear el juego. Orden de arranque: logger → servidor → cliente → bot.
 
-## Ejecución con el logger (desde la práctica 2)
-El juego envía cada punto al programa 'logger' através de la FIFO '/tmp/fifo_logger'. El logger crea la FIFO, así que debe lanzarse **antes** que el 
-juego, en otro terminal:
-    # Terminal 1
+
+## Ejecución (desde la práctica 4)
+
+Hay que lanzar cuatro programas, cada uno en su terminal y en este orden, porque cada uno necesita algo que crea el anterior:
+
+    # Terminal 1: el logger crea la FIFO /tmp/fifo_logger
     ./logger
-    # Terminal 2
-    ./tenis
-    # Terminal 3 (después del tenis: el juego crea /tmp/datos_bot)
+    # Terminal 2: el servidor crea la FIFO servidor-cliente (su ventana aparece al lanzar el cliente)
+    ./servidor
+    # Terminal 3: el cliente crea la FIFO cliente-servidor y el fichero /tmp/datos_bot
+    ./cliente
+    # Terminal 4: el bot usa /tmp/datos_bot
     ./bot
+
+Se juega desde la ventana del cliente: el jugador 2 con `o` y `l`; el jugador 1 lo controla el bot. A los 3 puntos terminan los cuatro programas.
