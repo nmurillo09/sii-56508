@@ -182,16 +182,8 @@ exit(0);
 
 void CMundo::OnKeyboardDown(unsigned char key, int x, int y)
 {
-	switch(key)
-	{
-//	case 'a':jugador1.velocidad.x=-1;break;
-//	case 'd':jugador1.velocidad.x=1;break;
-	case 's':jugador1.velocidad.y=-4;break;
-	case 'w':jugador1.velocidad.y=4;break;
-	case 'l':jugador2.velocidad.y=-4;break;
-	case 'o':jugador2.velocidad.y=4;break;
-
-	}
+	//El servidor ya no atiende al teclado: las teclas llegan al cliente
+	//por la FIFO y las procesa el hilo (RecibeComandosJugador).
 }
 
 // Funcion que ejecuta el hilo: llama al metodo del objeto
